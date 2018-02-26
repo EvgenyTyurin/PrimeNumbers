@@ -17,12 +17,17 @@ public class Think4E4 {
         do {
             // Ask user for search range
             int maxInt;
+            int minInt;
             Scanner con = new Scanner(System.in);
             try {
                 do {
-                    System.out.print("Enter range of prime number search: ");
+                    System.out.print("Enter start number of prime search: ");
+                    minInt = con.nextInt();
+                } while (minInt < 2);
+                do {
+                    System.out.print("Enter end number of prime search: ");
                     maxInt = con.nextInt();
-                } while (maxInt < 2);
+                } while (maxInt <= minInt );
             } catch (Exception e) {
                 System.out.println("Input error!");
                 continue;
@@ -34,7 +39,7 @@ public class Think4E4 {
 
             // Check numbers from 2 to maxInt for prime
             Instant startTime = Instant.now();
-            for (int dividend = 2; dividend <= maxInt; dividend++) {
+            for (int dividend = minInt; dividend <= maxInt; dividend++) {
                 boolean maybePrime = true;
                 // Try to find divisor with reminder = 0
                 for (int divisor = 2; divisor < dividend; divisor++) {
@@ -62,7 +67,7 @@ public class Think4E4 {
                 System.out.println(prime);
             }
             System.out.println("Prime numbers found: " + primeList.size() +
-                    " out of " + maxInt +
+                    " out of " + (maxInt - minInt) +
                     " in " + periodSec + " sec. " + periodMil + " ms.");
             if (speed >= 0)
                 System.out.println("Speed: " + speed + " primes/ms.");
